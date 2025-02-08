@@ -1,6 +1,7 @@
 from database import get_db, Base
 from database.models import User, Product, Category, Cart, Favorite, Brand
-
+from telebot import TeleBot
+bot = TeleBot(token='7722831734:AAHhjV00pbU5l0b_OL90il5G1UW_MV4h54Y')
 def registration_db(username:str, password1:str, password2:str, phone_number:str, email:str = None, address:str = None):
     with next(get_db()) as db:
         user = db.query(User).filter(
@@ -146,3 +147,46 @@ def get_exact_prod_by_cat(id:int):
     with next(get_db()) as db:
         prod_by_cat = db.query(Product).filter_by(category_id=id).all()
         return prod_by_cat
+
+def get_all_cat():
+    with next(get_db()) as db:
+        result = db.query(Category).all()
+        return result
+
+def get_all_brands():
+    with next(get_db()) as db:
+        result = db.query(Brand).all()
+        return result
+
+def get_exact_product(id:int):
+    with next(get_db()) as db:
+        check = db.query(Product).filter_by(id=id).first()
+        if check:
+            return check
+        return {'status': 0, 'message': 'already exists'}
+
+def get_exact_brand(id:int):
+    with next(get_db()) as db:
+        check = db.query(Brand).filter_by(id=id).first()
+        if check:
+            return check
+        return {'status': 0, 'message': 'already exists'}
+
+def get_exact_category(id:int):
+    with next(get_db()) as db:
+        check = db.query(Category).filter_by(id=id).first()
+        if check:
+            return check
+        return {'status': 0, 'message': 'already exists'}
+
+def get_exact_cart(id:int):
+    with next(get_db()) as db:
+        check = db.query(Cart).filter_by(id=id).first()
+        if check:
+            return check
+        return {'status': 0, 'message': 'already exists'}
+
+def offer(id:int, count:int):
+    with next(get_db()) as db:
+        product = db.query(Product).filter_by(id=id).first()
+        return product

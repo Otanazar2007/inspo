@@ -5,3 +5,6 @@ python-multipart
 regex
 requests
 pydantic
+telebot
+psycopg2
+psycopg2-binary
