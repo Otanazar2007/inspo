@@ -19,7 +19,7 @@ class NewCategory(BaseModel):
     descr: str
 
 
-@admin_router.post('/get_ex_user', tags=['Админ сервис'])
+@admin_router.get('/get_ex_user', tags=['Админ сервис'])
 async def ex_user(id:int):
     result = get_exact_user(id=id)
     if result:
@@ -58,7 +58,7 @@ async def new_prod(
         return {'status': 1, 'message': result}
     return {'status': 1, 'message': 'not exists'}
 
-@admin_router.post('/ch_it_prod', tags=['Админ сервис'])
+@admin_router.put('/ch_it_prod', tags=['Админ сервис'])
 async def change_product_items(
         id: int = Form(...),
         name: Optional[str] = Form(None),
@@ -96,12 +96,12 @@ async def change_product_items(
             except Exception as e:
                 return {'status': 0, 'message': f'Error occurred: {str(e)}'}
 
-@admin_router.post('/del_exact_product', tags=['Админ сервис'])
+@admin_router.delete('/del_exact_product', tags=['Админ сервис'])
 async def delete_exact_product(id:int):
     result = del_exact_prod(id = id)
     return result
 
-@admin_router.post('/change_br_it', tags=['Админ сервис'])
+@admin_router.put('/change_br_it', tags=['Админ сервис'])
 async def br_it_change(id:int, name:str=None, descr:str=None):
     result = change_br_items(
         id = id,
@@ -110,7 +110,7 @@ async def br_it_change(id:int, name:str=None, descr:str=None):
     )
     return result
 
-@admin_router.post('/change_cat_it', tags=['Админ сервис'])
+@admin_router.put('/change_cat_it', tags=['Админ сервис'])
 async def change_category_items(id:int, name:str=None, descr:str=None):
     result = change_cat_items(
         id = id,
@@ -119,14 +119,14 @@ async def change_category_items(id:int, name:str=None, descr:str=None):
     )
     return result
 
-@admin_router.post('/del_ex_cat', tags=['Админ сервис'])
+@admin_router.delete('/del_ex_cat', tags=['Админ сервис'])
 async def delete_exact_category(id:int):
     result = del_ex_cat(
         id=id
     )
     return result
 
-@admin_router.post('/del_br_ex', tags=['Админ сервис'])
+@admin_router.delete('/del_br_ex', tags=['Админ сервис'])
 async def delete_exact_brand(id:int):
     result = del_ex_br(
         id=id

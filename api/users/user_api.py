@@ -69,7 +69,7 @@ async def login_view(user_model: LoginModel):
                       password=user_model.password)
     return {'status':1, 'message':result}
 
-@user_router.post('/change', tags=['Юзер сервис'])
+@user_router.put('/change', tags=['Юзер сервис'])
 async def change_account(user_model: ChangeAccountModel):
     data = dict(user_model)
     result = change_account_db(id=user_model.id, password=user_model.password, username=user_model.username,
@@ -77,42 +77,42 @@ async def change_account(user_model: ChangeAccountModel):
                                address=user_model.address, new_password=user_model.new_password)
     return {'status':1, 'message':result}
 
-@user_router.post('/del', tags=['Юзер сервис'])
+@user_router.delete('/del', tags=['Юзер сервис'])
 async def drop_account(user_model: UserDeleteAccountModel):
     result = delete_account_db(id = user_model.id, password=user_model.password)
     return {'status':1, 'message':result}
 
-@user_router.post('/get_ex_cat', tags=['Юзер сервис'])
+@user_router.get('/get_ex_cat', tags=['Юзер сервис'])
 async def ex_cat_get(id:int):
     result = get_exact_category(id=id)
     return result
 
-@user_router.post('/get_ex_brand', tags=['Юзер сервис'])
+@user_router.get('/get_ex_brand', tags=['Юзер сервис'])
 async def ex_br_get(id:int):
     result = get_exact_brand(id=id)
     return result
 
-@user_router.post('/get_ex_prod', tags=['Юзер сервис'])
+@user_router.get('/get_ex_prod', tags=['Юзер сервис'])
 async def ex_prod_get(id:int):
     result = get_exact_product(id=id)
     return result
 
-@user_router.post('/add_to_fav', tags=['Юзер сервис'])
+@user_router.get('/add_to_fav', tags=['Юзер сервис'])
 async def fav_add(id, product_id):
     result = add_to_favorite(id=id, product_id=product_id)
     return result
 
-@user_router.post('/add_to_cart', tags=['Юзер сервис'])
+@user_router.get('/add_to_cart', tags=['Юзер сервис'])
 async def cart_add(id:int, product_id:int, count:int):
     result = add_to_cart(id=id, product_id=product_id, count=count)
     return result
 
-@user_router.post('/cart_del', tags=['Юзер сервис'])
+@user_router.delete('/cart_del', tags=['Юзер сервис'])
 async def del_cart(id:int, product_id:int, count:int):
     result = del_from_cart(id=id, product_id=product_id, count=count)
     return result
 
-@user_router.post('/fav_del', tags=['Юзер сервис'])
+@user_router.delete('/fav_del', tags=['Юзер сервис'])
 async def del_fav(id:int, product_id:int):
     result = del_from_fav(id=id, product_id=product_id)
     return result
@@ -122,17 +122,17 @@ async def main_menu():
     result = get_prod_main_menu()
     return result
 
-@user_router.post('/ex_prod_by_cat', tags=['Юзер сервис'])
+@user_router.get('/ex_prod_by_cat', tags=['Юзер сервис'])
 async def prod_ex_by_cat(id:int):
     result = get_exact_prod_by_cat(id=id)
     return result
 
-@user_router.post('/ex_prod_by_brand', tags=['Юзер сервис'])
+@user_router.get('/ex_prod_by_brand', tags=['Юзер сервис'])
 async def prod_ex_by_cat(id:int):
     result = get_exact_prod_by_brand(id=id)
     return result
 
-@user_router.post('/all_cat', tags=['Юзер сервис'])
+@user_router.get('/all_cat', tags=['Юзер сервис'])
 async def cat_all():
     result = get_all_cat()
     return result
